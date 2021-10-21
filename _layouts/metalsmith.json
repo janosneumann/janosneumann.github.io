@@ -1,0 +1,173 @@
+{
+  "metadata": {
+    "version": "0.1",
+    "site_title": "Janos",
+    "site_description": "Janos, the free, static site generator that is automatically hosted on Github Pages",
+    "about": "Janos is a static site generator developed by Gijs van Dam",
+    "about_img": "images/gijsvandam.jpg",
+    "author": "Gis11 van Dam",
+    "social_media": {
+      "twitter": {
+        "url": "https://www.twitter.com/gijswijs",
+        "icon": "twitter",
+        "name": "@gijswijs"
+      },
+      "linkedin": {
+        "url": "https://www.linkedin.com/in/gijsvandam/",
+        "icon": "linkedin",
+        "name": "LinkedIn"
+      },
+      "github": {
+        "url": "https://www.github.com/gijswijs",
+        "icon": "github",
+        "name": "Github"
+      },
+      "rss": {
+        "url": "/rss.xml",
+        "icon": "rss",
+        "name": "RSS"
+      }
+    }
+  },
+  "source": "_src",
+  "destination": "/",
+  "image-processing": {
+    "maxWidth": 1080,
+    "minWidth": 300,
+    "resize": [1, 0.75, 0.5],
+    "renamePostfix": ["_l", "_m", "_s"],
+    "format": ["avif", "webp", "jpg"]
+  },
+  "clean": true,
+  "devClean": false,
+  "plugins": [
+    { "source-url": true, "dev": true },
+    {
+      "metalsmith-publish": { "draft": false, "private": false },
+      "dev": false
+    },
+    {
+      "metalsmith-responsive-images": {
+        "maxWidth": 1080,
+        "minWidth": 300,
+        "resize": [1, 0.75, 0.5],
+        "renamePostfix": ["_l", "_m", "_s"],
+        "format": ["avif", "webp", "jpg"],
+        "sizes-attr": []
+      }
+    },
+    {
+      "metalsmith-collections": {
+        "posts": {
+          "pattern": "posts/**/*.md",
+          "sortBy": "date",
+          "reverse": true
+        },
+        "navigation": {
+          "refer": false,
+          "sortBy": "sortId"
+        }
+      }
+    },
+    { "metalsmith-debug": {} },
+    {
+      "metalsmith-pagination": {
+        "collections.posts": {
+          "perPage": 3,
+          "first": "index.html",
+          "path": "page/:num/index.html",
+          "layout": "miksa/home.njk",
+          "pageMetadata": {
+            "title": "Archive",
+            "feature_image": "/images/cover.jpg"
+          }
+        }
+      }
+    },
+    { "metalsmith-markdown": true },
+    {
+      "metalsmith-more": {
+        "key": "excerpt"
+      }
+    },
+    { "metalsmith-permalinks": true },
+    {
+      "metalsmith-tags": {
+        "handle": "tags",
+        "path": "topics/:tag/index.html",
+        "pathPage": "topics/:tag/:num/index.html",
+        "perPage": 6,
+        "layout": "/miksa/tag.njk",
+        "sortBy": "date",
+        "reverse": true,
+        "skipMetadata": false,
+        "slug": {
+          "mode": "rfc3986"
+        }
+      }
+    },
+    {
+      "dump-file": {
+        "filename": "posts/first-post/index.html"
+      }
+    },
+    {
+      "metalsmith-layouts": {
+        "directory": "_layouts",
+        "pattern": "**",
+        "engineOptions": {
+          "partials": {
+            "default": "_layouts/biron/default.hbs",
+            "footer": "_layouts/biron/partials/footer.hbs",
+            "header": "_layouts/biron/partials/header.hbs",
+            "icon-sprite": "_layouts/biron/partials/icon-sprite.hbs",
+            "icon": "_layouts/biron/partials/icon.hbs",
+            "navigation": "_layouts/biron/partials/navigation.hbs",
+            "social-media": "_layouts/biron/partials/social-media.hbs",
+            "post-card": "_layouts/biron/partials/post-card.hbs",
+            "pagination": "_layouts/biron/partials/pagination.hbs"
+          },
+          "helpers": {
+            "dateFormat": "handlebarsDateHelper"
+          },
+          "noCache": true
+        }
+      }
+    },
+    {
+      "metalsmith-feed": {
+        "collection": "posts",
+        "site_url": "https://gijswijs.github.io",
+        "title": "Neumann SSG test",
+        "description": "A demonstration static site built using Neumann SSG"
+      }
+    },
+    {
+      "metalsmith-mapsite": {
+        "hostname": "https://gijswijs.github.io",
+        "omitIndex": true
+      }
+    },
+    {
+      "metalsmith-assets": {
+        "source": "_layouts/miksa/assets",
+        "destination": "/"
+      }
+    },
+    {
+      "metalsmith-assets": {
+        "source": "_src/images",
+        "destination": "/images"
+      }
+    },
+    { "write-built-url": true, "dev": true },
+    {
+      "css-change-url": true
+    },
+    {
+      "inline-source": true,
+      "dev": true
+    },
+    { "metalsmith-html-minifier": true, "dev": false }
+  ]
+}
