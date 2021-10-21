@@ -1,0 +1,17 @@
+<footer>
+  {% include "miksa/components/_nav.njk" %}
+  <ul>
+    {% asyncEach platform, properties in social_media %}
+    	<li>
+        <a href="{{ properties.url }}" rel="noreferrer noopener me" target="_blank" title="{{ properties.name }}">
+          {{ properties.name }}
+        </a>
+      </li>
+    {% endeach  %}
+  </ul>
+  <p>
+    &copy; {{ now | date("YYYY") }} <a href="{{rootpath}}">{{ site_title }}</a>.
+      Published with <a href="https://github.com/neumannjs/Janos">Janos</a>.
+      Theme <a href="https://github.com/neumannjs/Miksa">Miksa</a>.
+  </p>
+</footer>
